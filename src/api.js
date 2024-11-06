@@ -17,9 +17,20 @@ const getArticleById = (article_id) => {
         return data.article
     })
 }
+
+// Comments
+
+const getCommentsByArticleId = (article_id) => {
+    return api.get(`/articles/${article_id}/comments`).then(({ data }) => {
+        return data.comments
+    })
+}
+
+// Users
+
 const getUsers = () => {
     return api.get('/users').then(({ data }) => {
         return data.user
     })
 }
-export { getArticles, getUsers, getArticleById }
+export { getArticles, getUsers, getArticleById, getCommentsByArticleId }

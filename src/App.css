@@ -47,7 +47,6 @@ body {
 
 #article-card {
     margin: 0.5em;
-    padding: 1em;
     border: 1px solid grey;
     border-radius: 0.25em;
 }
@@ -70,7 +69,8 @@ img.avatar {
         display: inline-flex;
         list-style-type: none;
     }
-    ul.display-votes-comments {
+
+.display-votes-comments {
         display: inline-flex;
         list-style-type: none;
         align-items: baseline;
@@ -111,4 +111,23 @@ h4.comments {
 
 .lighter {
     font-weight: lighter;
+}
+
+
+.comments-link {
+    background: none;
+    border: none;
+    color:blue;
+    text-decoration: underline;
+    cursor: pointer;
+    font: inherit;
+    font-weight: bold;
+}
+
+.comments-body {
+    margin-left: 1.5em;
+}
+
+#comments-list ul {
+    padding-left: 1em;
 }
