@@ -10,7 +10,7 @@ const CommentsCard = (props) => {
 
 
     return (
-        <section id="comment-card">
+        <li id="comment-card">
             <p>By <span className="bold">{comment.author}</span> on {commentDate}</p>
             <div className="comments-body">
                 <p>{comment.body}</p>
@@ -18,7 +18,7 @@ const CommentsCard = (props) => {
                     <h4 className="votes">Votes: </h4><p><span className="lighter">{comment.votes}</span></p>
                 </div>
             </div>                      
-        </section>
+        </li>
     )
 }
 

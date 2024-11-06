@@ -4,7 +4,4 @@ const formatDate = (timestamp) => {
     return formattedDate
 }
 
-const avatarPlaceholder = "https://static.vecteezy.com/system/resources/previews/021/548/095/original/default-profile-picture-avatar-user-avatar-icon-person-icon-head-icon-profile-picture-icons-default-anonymous-user-male-and-female-businessman-photo-placeholder-social-network-avatar-portrait-free-vector.jpg"
-
-
-export { formatDate, avatarPlaceholder }
+export { formatDate }
