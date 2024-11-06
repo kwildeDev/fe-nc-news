@@ -18,6 +18,18 @@ const getArticleById = (article_id) => {
     })
 }
 
+const getArticleVotesCount = (article_id) => {
+    return api.get(`/articles/${article_id}`).then(({ data }) => {
+        return data.article.votes
+    })
+}
+
+const updateArticleVotes = (article_id, inc_votes) => {
+    return api.patch(`/articles/${article_id}`,inc_votes).then(({ data }) => {
+        return data.article
+    })
+}
+
 // Comments
 
 const getCommentsByArticleId = (article_id) => {
@@ -26,11 +38,4 @@ const getCommentsByArticleId = (article_id) => {
     })
 }
 
-// Users
-
-const getUsers = () => {
-    return api.get('/users').then(({ data }) => {
-        return data.user
-    })
-}
-export { getArticles, getUsers, getArticleById, getCommentsByArticleId }
+export { getArticles, getArticleById, getArticleVotesCount, updateArticleVotes, getCommentsByArticleId }

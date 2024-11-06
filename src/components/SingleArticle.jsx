@@ -3,6 +3,7 @@ import { getArticleById } from '../api'
 import { useParams } from 'react-router'
 import CommentsList from './CommentsList'
 import { formatDate } from '../utils'
+import VotesCounter from './VotesCounter'
 
 const SingleArticle = (props) => {
     const { article_id } = useParams()
@@ -28,15 +29,15 @@ const SingleArticle = (props) => {
     }
 
     if (isError) {
-        return <p>Sorry, article not found</p>
+        return <p>Sorry, there was an error</p>
     }
 
-    function handleClick(event) {
+    function handleCommentsClick(event) {
         setShowComments(!showComments)
     }
 
     const articleDate = formatDate(singleArticle.created_at)
-    
+
     return (
         <>
         <section id="single-article">
@@ -47,10 +48,10 @@ const SingleArticle = (props) => {
             </div>
             <p>By <span className='bold'>{singleArticle.author}</span> on {articleDate}</p>
             <p className='body-text'>{singleArticle.body}</p>
-            <ul className='display-votes-comments'>
-                <h4 className='votes'>Votes: </h4><p><span className='lighter'>{singleArticle.votes}</span></p>
-            <button onClick={ handleClick } className='comments-link'>Comments: </button><p><span className="lighter">{singleArticle.comment_count}</span></p>
-            </ul>
+            <div className='votes-comments-line'>
+                <VotesCounter article_id={article_id} votes={singleArticle.votes}/>
+                <button onClick={ handleCommentsClick } className='comments-link'>Comments: </button><p><span className="lighter">{singleArticle.comment_count}</span></p>
+            </div>
         </section>
         <CommentsList showComments={showComments} article_id={singleArticle.article_id}/>
         </>
@@ -58,3 +59,5 @@ const SingleArticle = (props) => {
     }
 
 export default SingleArticle
+
+// <h4 className='votes'>Votes: </h4><p><span className='lighter'>{singleArticle.votes}</span></p>

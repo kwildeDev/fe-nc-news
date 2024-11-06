@@ -20,7 +20,6 @@ const CommentsList = (props) => {
         })
     },[])
 
-    console.log(isLoading)
     if (isLoading) {
         return <p>Loading...</p>
     }
