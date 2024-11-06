@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { getArticleById } from "../api"
 import { Link } from "react-router-dom"
+import { formatDate } from "../utils"
 
 const ArticleCard = (props) => {
     const { article } = props
@@ -28,8 +29,7 @@ const ArticleCard = (props) => {
         return <p>Sorry, article not found</p>
     }
 
-    const shortDate = article.created_at.slice(8,10)+"/"+article.created_at.slice(5,7)+"/"+article.created_at.slice(0,4)
-    const formattedDate = `${shortDate} at ${article.created_at.slice(11,16)}`
+    const articleDate = formatDate(article.created_at)
 
     return (
         <section id="article-card">
@@ -40,7 +40,7 @@ const ArticleCard = (props) => {
                     <h3>{articleCard.title}</h3>
                     </Link>
                     <p><span className="bold">Topic: </span>{article.topic}</p>
-                    <p>By <span className="bold">{article.author}</span> on {formattedDate}</p>
+                    <p>By <span className="bold">{article.author}</span> on {articleDate}</p>
                     <p className="text-intro">{articleCard.body}</p>
                 </div>
             </ul>
