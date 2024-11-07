@@ -38,4 +38,16 @@ const getCommentsByArticleId = (article_id) => {
     })
 }
 
-export { getArticles, getArticleById, getArticleVotesCount, updateArticleVotes, getCommentsByArticleId }
+const postComment = (article_id, commentFormData) => {
+    return api.post(`articles/${article_id}/comments`,
+        {
+            article_id: article_id,
+            author: commentFormData.author,
+            body: commentFormData.body
+        })
+        .then(({ data }) => {
+        return data.comment
+    })
+}
+
+export { getArticles, getArticleById, getArticleVotesCount, updateArticleVotes, getCommentsByArticleId, postComment }

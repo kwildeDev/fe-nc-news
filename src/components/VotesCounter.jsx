@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { getArticleVotesCount, updateArticleVotes } from '../api';
 
 const VotesCounter = ({article_id, votes}) => {
-  const [votesCount, setVotesCount] = useState(votes)
+  const [votesCount, setVotesCount] = useState(0)
   const [error, setError] = useState(null)
   
   useEffect(() => {
+    setVotesCount(votes)
     getArticleVotesCount(article_id)
     .then((votesCount) => {
       setVotesCount(votesCount)

@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom"
-import Nav from "./Nav"
 
 const Header = () => {
     return (
@@ -8,7 +7,6 @@ const Header = () => {
             <h1 id="home-link">
                 <Link to="/">NC News</Link>
             </h1>
-            <Nav/>
         </header>
         </div>
     )

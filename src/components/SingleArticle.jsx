@@ -11,6 +11,7 @@ const SingleArticle = (props) => {
     const [isLoading, setIsLoading] = useState(true)
     const [isError, setIsError] = useState(false)
     const [showComments, setShowComments] = useState(false)
+    const [commentCount, setCommentCount] = useState(0)
 
     useEffect(() => {
         setIsLoading(true)
@@ -37,6 +38,13 @@ const SingleArticle = (props) => {
     }
 
     const articleDate = formatDate(singleArticle.created_at)
+    
+    //setCommentCount(singleArticle.comment_count)
+
+    const updateCommentCount = () => {
+        console.log("comment count function")
+        setCommentCount(commentCount + 1)
+    }
 
     return (
         <>
@@ -50,14 +58,12 @@ const SingleArticle = (props) => {
             <p className='body-text'>{singleArticle.body}</p>
             <div className='votes-comments-line'>
                 <VotesCounter article_id={article_id} votes={singleArticle.votes}/>
-                <button onClick={ handleCommentsClick } className='comments-link'>Comments: </button><p><span className="lighter">{singleArticle.comment_count}</span></p>
+                <button onClick={ handleCommentsClick } className='comments-link'>Comments: </button><p><span className="lighter">{singleArticle.comment_count + commentCount}</span></p>
             </div>
         </section>
-        <CommentsList showComments={showComments} article_id={singleArticle.article_id}/>
+        <CommentsList updateCommentCount={updateCommentCount} showComments={showComments} article_id={singleArticle.article_id}/>
         </>
         )
     }
 
 export default SingleArticle
-
-// <h4 className='votes'>Votes: </h4><p><span className='lighter'>{singleArticle.votes}</span></p>
