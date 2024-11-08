@@ -39,7 +39,7 @@ const getCommentsByArticleId = (article_id) => {
 }
 
 const postComment = (article_id, commentFormData) => {
-    return api.post(`articles/${article_id}/comments`,
+    return api.post(`/articles/${article_id}/comments`,
         {
             article_id: article_id,
             author: commentFormData.author,
@@ -50,4 +50,7 @@ const postComment = (article_id, commentFormData) => {
     })
 }
 
-export { getArticles, getArticleById, getArticleVotesCount, updateArticleVotes, getCommentsByArticleId, postComment }
+const deleteComment = (comment_id) => {
+    return api.delete(`/comments/${comment_id}`)
+}
+export { getArticles, getArticleById, getArticleVotesCount, updateArticleVotes, getCommentsByArticleId, postComment, deleteComment }

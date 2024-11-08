@@ -2,8 +2,8 @@ import { formatDate } from "../utils"
 
 const CommentsCard = (props) => {
     const { comment } = props
-    
-    const commentDate = formatDate(comment.created_at)
+
+    const commentDate = formatDate(comment.created_at)           
 
     return (
         <li id="comment-card">
@@ -13,7 +13,8 @@ const CommentsCard = (props) => {
                 <div className="votes-comments-line">
                     <h4 className="votes">Votes: </h4><p><span className="lighter">{comment.votes}</span></p>
                 </div>
-            </div>                      
+            </div>
+            
         </li>
     )
 }
