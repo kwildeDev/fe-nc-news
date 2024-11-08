@@ -6,10 +6,12 @@ const api = axios.create({
 
 // Articles
 
-const getArticles = (topicSlug) => {
+const getArticles = (topicSlug, sortBy, orderBy) => {
     return api.get('/articles', {
         params: {
             topic: topicSlug,
+            sort_by: sortBy,
+            order: orderBy,
         }
     }).then(({ data }) => {
         return data.articles

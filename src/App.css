@@ -37,6 +37,12 @@ body {
 html {
     overflow-y: scroll;
 }
+
+.sort__forms {
+    display: flex;
+    justify-content: space-between;
+}
+
 #articles-list {    
     flex-direction: column;
     justify-content: center;
@@ -58,7 +64,6 @@ html {
 }
 
 #article-card {
-    max-width: 800px; 
     border: 1px solid grey;
     border-radius: 0.25em;
     display:block;

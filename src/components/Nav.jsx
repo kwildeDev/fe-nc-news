@@ -31,7 +31,8 @@ const Nav = () => {
     return (
         <nav>
             <ul className="nav__list">
-                <li className={'nav__listitem' && 'nav__listitem--special'}><Link to={{pathname: `/`}}>Most popular</Link></li>
+                <li className={'nav__listitem' && 'nav__listitem--special'}><Link to={{pathname: `/`}}>Most recent</Link></li>
+                <hr />
                 <li>Topics:</li>
                 {topics.map((topic) => {
                     return <li className="nav__listitem" key={topic.slug}>
