@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import UserContext from "../contexts/userContext"
 import { useContext } from "react"
+import Nav from "./Nav"
 
 
 const Header = () => {
@@ -15,6 +16,7 @@ const Header = () => {
                 <Link to="/">NC News</Link>
             </h1>
         </header>
+        <Nav/>
         </div>
     )
 }
