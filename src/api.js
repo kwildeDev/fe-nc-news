@@ -6,8 +6,12 @@ const api = axios.create({
 
 // Articles
 
-const getArticles = () => {
-    return api.get('/articles').then(({ data }) => {
+const getArticles = (topicSlug) => {
+    return api.get('/articles', {
+        params: {
+            topic: topicSlug,
+        }
+    }).then(({ data }) => {
         return data.articles
     })
 }
@@ -27,6 +31,14 @@ const getArticleVotesCount = (article_id) => {
 const updateArticleVotes = (article_id, inc_votes) => {
     return api.patch(`/articles/${article_id}`,inc_votes).then(({ data }) => {
         return data.article
+    })
+}
+
+// Topics
+
+const getTopics = () => {
+    return api.get('/topics').then(({ data }) => {
+        return data.topics
     })
 }
 
@@ -53,4 +65,4 @@ const postComment = (article_id, commentFormData) => {
 const deleteComment = (comment_id) => {
     return api.delete(`/comments/${comment_id}`)
 }
-export { getArticles, getArticleById, getArticleVotesCount, updateArticleVotes, getCommentsByArticleId, postComment, deleteComment }
+export { getArticles, getArticleById, getArticleVotesCount, updateArticleVotes, getTopics, getCommentsByArticleId, postComment, deleteComment }

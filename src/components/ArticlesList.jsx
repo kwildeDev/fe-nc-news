@@ -2,15 +2,20 @@ import { useState, useEffect } from 'react';
 import { getArticles } from '../api';
 import { formatDate } from '../utils';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+
 
 const ArticlesList = () => {
+    const { pathname } = useLocation()
     const [articles, setArticles] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
 
+    const topicSlug = pathname.startsWith("/topics/") ? pathname.slice(8) : undefined
+    
     useEffect(() => {
         setIsLoading(true)
-        getArticles()
+        getArticles(topicSlug)
         .then((articles) => {
             setArticles(articles)
             setIsLoading(false)
@@ -18,7 +23,7 @@ const ArticlesList = () => {
         .catch((err) => {
             setIsError(true)
         })
-    },[])
+    },[topicSlug])
 
     if (isLoading) {
         return <p>Loading...</p>
@@ -30,10 +35,10 @@ const ArticlesList = () => {
 
     return (
         <section id='articles-list'>
+            <h2>{topicSlug || "All articles"}</h2>
             <ul className="list-display">
                 {articles.map((article) => {
-                    return <>
-                        <li id="article-card" key={article.article_id}>
+                    return <li id="article-card" key={article.article_id}>
                         <div className="article-img-details-container">
                             <img className="article-img" src={article.article_img_url}></img>
                             <div className="article-card-details">
@@ -48,8 +53,7 @@ const ArticlesList = () => {
                             <h4 className="votes">Votes: </h4><p><span className="lighter">{article.votes}</span></p>
                             <h4 className="comments">Comments: </h4><p><span className="lighter">{article.comment_count}</span></p>
                         </div>
-                        </li>
-                    </>
+                    </li>
                 })}
             </ul>
         </section>
