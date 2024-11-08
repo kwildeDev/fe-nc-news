@@ -39,11 +39,8 @@ const SingleArticle = (props) => {
 
     const articleDate = formatDate(singleArticle.created_at)
     
-    //setCommentCount(singleArticle.comment_count)
-
-    const updateCommentCount = () => {
-        console.log("comment count function")
-        setCommentCount(commentCount + 1)
+    const updateCommentCount = (num) => {
+        setCommentCount(commentCount + num)
     }
 
     return (
@@ -58,7 +55,7 @@ const SingleArticle = (props) => {
             <p className='body-text'>{singleArticle.body}</p>
             <div className='votes-comments-line'>
                 <VotesCounter article_id={article_id} votes={singleArticle.votes}/>
-                <button onClick={ handleCommentsClick } className='comments-link'>Comments: </button><p><span className="lighter">{singleArticle.comment_count + commentCount}</span></p>
+                <h4 className='comments'>Comments:</h4><p><span className="lighter">{singleArticle.comment_count + commentCount}</span></p>
             </div>
         </section>
         <CommentsList updateCommentCount={updateCommentCount} showComments={showComments} article_id={singleArticle.article_id}/>

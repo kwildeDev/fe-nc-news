@@ -1,7 +1,10 @@
-import { useState,useEffect } from 'react'
+import { useState, useContext } from 'react'
+import UserContext from '../contexts/userContext'
 
 
 export default function CommentAdder({addNewComment}) {
+    const user = useContext(UserContext)
+
     const [inputValue, setInputValue] = useState("")
 
     const handleUserComment = (event) => {
@@ -15,7 +18,7 @@ export default function CommentAdder({addNewComment}) {
         const userComment = {
             "votes" : 0,
             "created_at": timeStamp,
-            "author": "jessjelly",
+            "author": user,
             "body": inputValue,
             }
         addNewComment(userComment)
