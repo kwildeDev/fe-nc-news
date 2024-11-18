@@ -56,12 +56,12 @@ const ArticlesList = () => {
 
     return (
         <section id='articles-list'>
-            <h2>{topicSlug || "All articles"}</h2>
-            <div className="sort__forms">
+            <h2 className="topic__heading">{topicSlug || "All articles"}</h2>
+            <div className="sort-order__select">
             <form>
-                <label>
+                <label htmlFor="selectSortBy" className="drop-down__label">
                 Sort by:
-                    <select onChange={handleSort} name="selectedQuery" defaultValue={sortBy}>
+                    <select id="selectSortBy" className="drop-down" onChange={handleSort} name="selectedQuery" defaultValue={sortBy}>
                         <option value="created_at">Date</option>
                         <option value="author">Author</option>
                         <option value="title">Title</option>
@@ -72,9 +72,9 @@ const ArticlesList = () => {
                 </label>
             </form>
             <form>
-                <label>
+                <label htmlFor="selectOrderBy" className="drop-down__label">
                     Order by:
-                    <select onChange={handleOrder} defaultValue={orderBy}>
+                    <select id="selectOrderBy" className="drop-down" onChange={handleOrder} defaultValue={orderBy}>
                         <option value="desc">Descending</option>
                         <option value="asc">Ascending</option>
                     </select>
@@ -82,37 +82,29 @@ const ArticlesList = () => {
             </form>
             </div>
             {isLoading && <p>Loading...</p>}
-            {!isLoading && <ul className="list-display">
+            {!isLoading && <ul className="articles__list">
                 {articles.map((article) => {
-                    return <li id="article-card" key={article.article_id}>
-                        <div className="article-img-details-container">
+                    return <li className="article-card" id="article-card" key={article.article_id}>
+                        <div className="article-card__content">
                             <img className="article-img" src={article.article_img_url}></img>
-                            <div className="article-card-details">
-                                <Link to={{pathname: `/articles/${article.article_id}`}}>
-                                    <h3>{article.title}</h3>
-                                </Link>
-                                <p><span className="bold">Topic: </span>{article.topic}</p>
-                                <p>By <span className="bold">{article.author}</span> on {formatDate(article.created_at)}</p>
-                            </div>
+                            <Link className={`topic__link topic__link--${article.topic}`} to={{pathname: `/topics/${article.topic}`}}>
+                                {article.topic}
+                            </Link>
+                            <p>By {article.author} on {formatDate(article.created_at)}</p>
+                            <Link className="article__title" to={{pathname: `/articles/${article.article_id}`}}>
+                                <h3>{article.title}</h3>
+                            </Link>
+                            
                         </div>
-                        <div className="votes-comments-line">
-                            <h4 className="votes">Votes: </h4><p><span className="lighter">{article.votes}</span></p>
-                            <h4 className="comments">Comments: </h4><p><span className="lighter">{article.comment_count}</span></p>
+                        <div className="article-card__footer">
+                            <p><strong>Votes: </strong>{article.votes}</p>
+                            <p><strong>Comments: </strong>{article.comment_count}</p>
                         </div>
                     </li>
                 })}
             </ul>}
         </section>
   )
-
-
-  return (
-    <section id="article-card">
-        
-    </section>
-)
-
-
 }
 
 export default ArticlesList

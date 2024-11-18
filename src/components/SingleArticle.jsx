@@ -45,19 +45,19 @@ const SingleArticle = (props) => {
 
     return (
         <>
-        <section id="single-article">
+        <article id="single-article" className='single-article'>
             <h2>{singleArticle.title}</h2>
-            <h4>Topic: <span className='lighter'>{singleArticle.topic}</span></h4>
+            <p><strong>Topic: </strong>{singleArticle.topic}</p>
             <div>
-                <img className="responsive" src={singleArticle.article_img_url}></img>
+                <img className="single-article__img" src={singleArticle.article_img_url}></img>
             </div>
-            <p>By <span className='bold'>{singleArticle.author}</span> on {articleDate}</p>
-            <p className='body-text'>{singleArticle.body}</p>
-            <div className='votes-comments-line'>
+            <p>By <strong>{singleArticle.author}</strong> on {articleDate}</p>
+            <p className='single-article__text'>{singleArticle.body}</p>
+            <div className='article-card__footer'>
                 <VotesCounter article_id={article_id} votes={singleArticle.votes}/>
-                <h4 className='comments'>Comments:</h4><p><span className="lighter">{singleArticle.comment_count + commentCount}</span></p>
+                <p><strong>Comments: </strong>{singleArticle.comment_count + commentCount}</p>
             </div>
-        </section>
+        </article>
         <CommentsList updateCommentCount={updateCommentCount} showComments={showComments} article_id={singleArticle.article_id}/>
         </>
         )
