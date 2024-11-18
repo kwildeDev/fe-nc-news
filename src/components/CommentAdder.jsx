@@ -26,7 +26,7 @@ export default function CommentAdder({addNewComment}) {
     }
 
     return (
-        <form onSubmit={handleSubmit} id="comment-adder" className="comment-form">
+        <form onSubmit={handleSubmit} id="comment-adder" className="comment-adder__form">
             <label htmlFor="commentInput">Have your say...</label>
             <textarea
                 id="commentInput"

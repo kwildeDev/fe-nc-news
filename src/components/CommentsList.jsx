@@ -85,7 +85,7 @@ const CommentsList = (props) => {
     }
     return (
         <>
-        <section id='comments-list'>
+        <section id='comments-list' className="comments-list">
             <button onClick={() => setIsFormDisplayed(!isFormDisplayed)}>
                 {isFormDisplayed ? "Cancel" : "Add a comment"}
             </button>
@@ -95,7 +95,7 @@ const CommentsList = (props) => {
                     return (
                         <div key={comment.comment_id}>
                             <CommentsCard comment={comment}/>
-                            <div id="delete-button">
+                            <div id="delete-button" className="comment-card__delete-btn">
                                 {comment.author === user && <button value={comment.comment_id} disabled= {isDeleting ? true : false} onClick= {handleDelete}>Delete Comment</button>}
                                 {isDeleting && <p>Comment deleted</p>}
                             </div>
