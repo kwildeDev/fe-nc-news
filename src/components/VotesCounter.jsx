@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getArticleVotesCount, updateArticleVotes } from '../api';
+import { Box, Button, Chip, IconButton, Stack, Typography } from '@mui/material';
+import { ThumbDown, ThumbUp } from '@mui/icons-material';
 
 const VotesCounter = ({article_id, votes}) => {
   const [votesCount, setVotesCount] = useState(0)
@@ -35,11 +37,16 @@ const VotesCounter = ({article_id, votes}) => {
   }
 
   return (
-    <>
-      <button onClick={handleVoteUp}>Up</button>
-      <h4 className='votes'>Votes: </h4><p><span className='lighter'>{votesCount}</span></p>
-      <button onClick={handleVoteDown}>Down</button>
-    </>
+    <Chip
+      label={
+        <Box display="flex" alignItems="center" gap={1}>
+          <IconButton onClick={handleVoteUp}><ThumbUp/></IconButton>
+          <Typography variant="chip">{votesCount}</Typography>
+          <IconButton onClick={handleVoteDown}><ThumbDown/></IconButton>
+        </Box>
+      }
+      variant="filled"
+    />
   )
 }
 

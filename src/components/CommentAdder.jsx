@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react'
 import UserContext from '../contexts/userContext'
+import { Button, FormControl, TextField } from '@mui/material'
 
 
 export default function CommentAdder({addNewComment}) {
@@ -26,15 +27,25 @@ export default function CommentAdder({addNewComment}) {
     }
 
     return (
-        <form onSubmit={handleSubmit} id="comment-adder" className="comment-adder__form">
-            <label htmlFor="commentInput">Have your say...</label>
-            <textarea
-                id="commentInput"
-                value={inputValue}
-                onChange={handleUserComment}
-                required
-            />
-            <button type="submit">Post Comment</button>
+        <form onSubmit={handleSubmit}>
+            <FormControl fullWidth sx={{ m: 1}}>
+                <TextField
+                    id="comment-input"
+                    multiline
+                    placeholder='Have your say...'
+                    rows={4}
+                    value={inputValue}
+                    onChange={handleUserComment}
+                    required
+                />
+            </FormControl>
+            <Button
+                variant="contained"
+                type="submit"
+                disabled={inputValue.trim() === ''}
+            >
+                Post Comment
+            </Button>
         </form>
     )
 }
