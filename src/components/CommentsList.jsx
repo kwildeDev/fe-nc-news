@@ -5,6 +5,7 @@ import CommentAdder from "./CommentAdder";
 import { useParams } from "react-router";
 import { deleteComment } from "../api";
 import UserContext from "../contexts/userContext";
+import { Alert, Button, CircularProgress, Snackbar } from "@mui/material";
 
 const CommentsList = (props) => {
     const user = useContext(UserContext)
@@ -17,8 +18,9 @@ const CommentsList = (props) => {
     const [isFormDisplayed, setIsFormDisplayed] = useState(false)
     const [isPosting, setIsPosting] = useState(false)
     const [isDeleted, setIsDeleted] = useState(false)
-    const [isDeleting, setIsDeleting] = useState(false)
+    const [deletingCommentId, setDeletingCommentId] = useState(null)
     const [errorMsg, setErrorMsg] = useState("")
+    const [alert, setAlert] = useState({ open: false, message: ""})
 
     function addNewComment(commentFormData) {
         setIsPosting(true)
@@ -37,22 +39,21 @@ const CommentsList = (props) => {
         })
     }
 
-
-    function handleDelete(event) {
-        event.preventDefault()
+    function handleDelete(commentId) {
         const confirmDelete = window.confirm("Are you sure you want to delete this comment?")
         if (confirmDelete) {
-            setIsDeleting(true)
-            const commentId = event.target.value
+            setDeletingCommentId(commentId)
             deleteComment(commentId)
             .then(() => {
                 setIsDeleted(true)
                 updateCommentCount(-1)
-                setIsDeleting(false)        
+                setDeletingCommentId(null)        
+                setAlert({ open: true, message: 'Comment deleted successfully'})
             })
             .catch((err) => {
+                setDeletingCommentId(null)
                 setError(true)
-                setErrorMsg("Comment could not be deleted")
+                setErrorMsg('Comment could not be deleted')
             })
         }
     }  
@@ -71,6 +72,9 @@ const CommentsList = (props) => {
         })
     },[isDeleted])
 
+    const handleCloseAlert = () => {
+        setAlert({ open: false, message: " "})
+    }
 
     if (isLoading) {
         return <p>Loading...</p>
@@ -86,25 +90,27 @@ const CommentsList = (props) => {
     return (
         <>
         <section id='comments-list' className="comments-list">
-            <button onClick={() => setIsFormDisplayed(!isFormDisplayed)}>
+            <Button variant="contained" onClick={() => setIsFormDisplayed(!isFormDisplayed)}>
                 {isFormDisplayed ? "Cancel" : "Add a comment"}
-            </button>
+            </Button>
             {isFormDisplayed && <CommentAdder addNewComment={addNewComment}/>}
             <ul>
                 {commentsList.map((comment) => {
                     return (
                         <div key={comment.comment_id}>
-                            <CommentsCard comment={comment}/>
-                            <div id="delete-button" className="comment-card__delete-btn">
-                                {comment.author === user && <button value={comment.comment_id} disabled= {isDeleting ? true : false} onClick= {handleDelete}>Delete Comment</button>}
-                                {isDeleting && <p>Comment deleted</p>}
-                            </div>
+                            <CommentsCard comment={comment} user={user} handleDelete={handleDelete} isDeleting={deletingCommentId === comment.comment_id}/>
                         </div>
                         )
                     })
                 }
             </ul>
         </section>
+        
+        <Snackbar open={alert.open} autoHideDuration={6000} onClose={handleCloseAlert}>
+            <Alert severity="success" onClose={handleCloseAlert}>
+                {alert.message}
+            </Alert>
+        </Snackbar>
         </>
     )
 }

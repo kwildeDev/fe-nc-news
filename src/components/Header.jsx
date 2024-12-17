@@ -1,13 +1,22 @@
+import { AppBar, Box } from '@mui/material';
 import Nav from './Nav';
 
 
 const Header = () => {
 
     return (
-        <header className="header">
+        <>
+        <AppBar
+            position="sticky"
+            elevation={0}
+            sx={{top: 0,
+                borderTop: '8px solid white',
+            }}>
             <Nav/>
-        </header>
+        </AppBar>
+        </>
     )
+
 }
 
 export default Header

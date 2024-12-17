@@ -1,20 +1,47 @@
+import { Avatar, Card, CardActions, CardContent, CardHeader, Chip, ListItem, Button, Typography, IconButton, Alert, Skeleton, CircularProgress } from "@mui/material"
 import { formatDate } from "../utils"
+import { Check, Delete, ThumbUp } from "@mui/icons-material"
+
 
 const CommentsCard = (props) => {
-    const { comment } = props
+    const { comment, user, handleDelete, isDeleting } = props
 
-    const commentDate = formatDate(comment.created_at)           
+    const commentDate = formatDate(comment.created_at)      
+    const authorInitial = comment.author && comment.author[0]?.toUpperCase() || '';     
 
     return (
-        <li id="comment-card" className="comment-card">
-            <p>By <span className="bold">{comment.author}</span> on {commentDate}</p>
-            <div className="comment-card__text">
-                <p>{comment.body}</p>
-                <div className="article-card__footer">
-                    <h4 className="votes">Votes: </h4><p><span className="lighter">{comment.votes}</span></p>
-                </div>
-            </div>
-        </li>
+        <ListItem>
+            <Card sx={{ width: {xs: "100%", sm: "50%"}}}>
+                <CardHeader
+                    avatar={
+                        <Avatar sx={{ bgcolor: 'secondary.main'}}>{authorInitial}</Avatar>
+                        }
+                    title={comment.author || 'Anonymous'}
+                    subheader={commentDate}
+                />
+                <CardContent>
+                    <Typography>{comment.body}</Typography>
+                </CardContent>
+                <CardActions sx={{ justifyContent: "space-between"}}>
+                <Chip icon={<ThumbUp />} label={comment.votes}/>
+                {comment.author === user && (
+                        <div>
+                            <Button
+                                variant="outlined"
+                                color="secondary"
+                                onClick={() => handleDelete(comment.comment_id)}
+                                disabled={isDeleting}
+                                startIcon={<Delete />}
+                            >
+                                Delete
+                            </Button>
+                            {isDeleting && <CircularProgress size={24} />}
+                        </div>
+                    )}
+
+                </CardActions>
+            </Card>
+        </ListItem>
     )
 }
 

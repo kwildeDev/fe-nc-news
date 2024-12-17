@@ -4,8 +4,14 @@ import { useParams } from 'react-router'
 import CommentsList from './CommentsList'
 import { formatDate } from '../utils'
 import VotesCounter from './VotesCounter'
+import { Typography, Box, useTheme, Link, Stack, Chip } from '@mui/material'
+import { NavLink } from 'react-router-dom'
+import { Comment } from '@mui/icons-material'
 
 const SingleArticle = (props) => {
+
+    const theme = useTheme();
+
     const { article_id } = useParams()
     const [singleArticle, setSingleArticle] = useState([])
     const [isLoading, setIsLoading] = useState(true)
@@ -45,19 +51,21 @@ const SingleArticle = (props) => {
 
     return (
         <>
-        <article id="single-article" className='single-article'>
-            <h2>{singleArticle.title}</h2>
-            <p><strong>Topic: </strong>{singleArticle.topic}</p>
-            <div>
+        <Box component="article" id="single-article" className='single-article' sx={{ mb: 1}}>
+            <Box sx={{ mt: 1, mb: 1 }}>
+                <Link href={`/topics/${singleArticle.topic}`} color="secondary" variant="body1" sx={{ fontSize: "larger", textTransform: "capitalize"}}>{singleArticle.topic}</Link>
+            </Box>
+            <Typography gutterBottom={true} variant="h4" component="h2">{singleArticle.title}</Typography>
+            <Box>
                 <img className="single-article__img" src={singleArticle.article_img_url}></img>
-            </div>
-            <p>By <strong>{singleArticle.author}</strong> on {articleDate}</p>
-            <p className='single-article__text'>{singleArticle.body}</p>
-            <div className='article-card__footer'>
+            </Box>
+            <Typography>By <strong>{singleArticle.author}</strong> on {articleDate}</Typography>
+            <Typography className='single-article__text'>{singleArticle.body}</Typography>
+            <Stack direction="row" alignItems="center" spacing={2}>
                 <VotesCounter article_id={article_id} votes={singleArticle.votes}/>
-                <p><strong>Comments: </strong>{singleArticle.comment_count + commentCount}</p>
-            </div>
-        </article>
+                <Chip icon={<Comment />} label={singleArticle.comment_count + commentCount}/>
+            </Stack>
+        </Box>
         <CommentsList updateCommentCount={updateCommentCount} showComments={showComments} article_id={singleArticle.article_id}/>
         </>
         )
