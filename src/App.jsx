@@ -15,7 +15,7 @@ function App() {
     return (
         <UserContext.Provider value={user}>
             
-            <Container maxWidth={false}>
+            <Container maxWidth="lg">
             <Header/>
             <Routes>
                 <Route path = "/" element={<ArticlesList/>} />

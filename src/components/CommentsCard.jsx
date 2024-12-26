@@ -10,8 +10,8 @@ const CommentsCard = (props) => {
     const authorInitial = comment.author && comment.author[0]?.toUpperCase() || '';     
 
     return (
-        <ListItem>
-            <Card sx={{ width: {xs: "100%", sm: "50%"}}}>
+        <ListItem disableGutters={true}>
+            <Card sx={{ width: "100%" }}>
                 <CardHeader
                     avatar={
                         <Avatar sx={{ bgcolor: 'secondary.main'}}>{authorInitial}</Avatar>
