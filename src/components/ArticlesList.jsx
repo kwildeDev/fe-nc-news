@@ -41,9 +41,11 @@ const ArticlesList = () => {
 
     useEffect(() => {
         setIsLoading(true)
-        setSortBy(searchParams.get("sort_by") || "created_at");
-        setOrderBy(searchParams.get("order") || "desc");
-        getArticles(topicSlug,sortBy,orderBy)
+        const newSortBy = (searchParams.get("sort_by") || "created_at");
+        const newOrderBy = (searchParams.get("order") || "desc");
+        setSortBy(newSortBy)
+        setOrderBy(newOrderBy)
+        getArticles(topicSlug,newSortBy,newOrderBy)
         .then((articles) => {
             setArticles(articles)
             setIsLoading(false)
