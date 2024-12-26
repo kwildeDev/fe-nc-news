@@ -40,9 +40,9 @@ const VotesCounter = ({article_id, votes}) => {
     <Chip
       label={
         <Box display="flex" alignItems="center" gap={1}>
-          <IconButton onClick={handleVoteUp}><ThumbUp/></IconButton>
+          <IconButton onClick={handleVoteUp} disableRipple={true}><ThumbUp/></IconButton>
           <Typography variant="chip">{votesCount}</Typography>
-          <IconButton onClick={handleVoteDown}><ThumbDown/></IconButton>
+          <IconButton onClick={handleVoteDown} disableRipple={true}><ThumbDown/></IconButton>
         </Box>
       }
       variant="filled"

@@ -6,7 +6,7 @@ import { formatDate } from '../utils'
 import VotesCounter from './VotesCounter'
 import { Typography, Box, useTheme, Link, Stack, Chip } from '@mui/material'
 import { NavLink } from 'react-router-dom'
-import { Comment } from '@mui/icons-material'
+import { Comment, CalendarToday } from '@mui/icons-material'
 
 const SingleArticle = (props) => {
 
@@ -51,16 +51,32 @@ const SingleArticle = (props) => {
 
     return (
         <>
-        <Box component="article" id="single-article" className='single-article' sx={{ mb: 1}}>
+        <Box component="article" sx={{ maxWidth: 800, mb: 1}}>
             <Box sx={{ mt: 1, mb: 1 }}>
                 <Link href={`/topics/${singleArticle.topic}`} color="secondary" variant="body1" sx={{ fontSize: "larger", textTransform: "capitalize"}}>{singleArticle.topic}</Link>
             </Box>
             <Typography gutterBottom={true} variant="h4" component="h2">{singleArticle.title}</Typography>
-            <Box>
-                <img className="single-article__img" src={singleArticle.article_img_url}></img>
+            <Typography gutterBottom={true} variant="body1">By {singleArticle.author}</Typography>
+            <Typography gutterBottom={true} variant="body1">{articleDate}</Typography>
+            <Box
+            sx={{
+                width: '100%',
+                maxWidth: '800px',
+                overflow: 'hidden',
+              }}
+            >
+                <img
+                    src={singleArticle.article_img_url}
+                    style={{
+                        width: '100%',
+                        height: 'auto',
+                        display: 'block',
+                    }}
+                />
             </Box>
-            <Typography>By <strong>{singleArticle.author}</strong> on {articleDate}</Typography>
-            <Typography className='single-article__text'>{singleArticle.body}</Typography>
+            <Box sx={{ mt: 4, mb: 4, maxWidth: 600}}>
+                <Typography gutterBottom={true} >{singleArticle.body}</Typography>
+            </Box>
             <Stack direction="row" alignItems="center" spacing={2}>
                 <VotesCounter article_id={article_id} votes={singleArticle.votes}/>
                 <Chip icon={<Comment />} label={singleArticle.comment_count + commentCount}/>
