@@ -5,8 +5,9 @@ import CommentAdder from "./CommentAdder";
 import { useParams } from "react-router";
 import { deleteComment } from "../api";
 import UserContext from "../contexts/userContext";
-import { Box, Alert, Button, CircularProgress, List, Snackbar } from "@mui/material";
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import { Box, Alert, Button, List, Snackbar, styled } from "@mui/material";
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper } from "@mui/material";
+import { WarningAmberOutlined } from "@mui/icons-material";
 
 const CommentsList = (props) => {
     const user = useContext(UserContext)
@@ -104,6 +105,13 @@ const CommentsList = (props) => {
         setAlert({ open: false, message: " "})
     }
 
+    const StyledPaper = styled(Paper)(({ theme }) => ({
+        backgroundColor: `${theme.palette.background.default}`,
+        border: `1px solid ${theme.palette.warning.main}`,
+        color: theme.palette.warning.main,
+
+    }));
+
     if (isLoading) {
         return <p>Loading...</p>
     }
@@ -137,7 +145,13 @@ const CommentsList = (props) => {
             onClose={handleCloseDialog}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
+            PaperComponent={StyledPaper}
         >
+            <Box sx={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 2, padding: 2 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <WarningAmberOutlined sx={{ fontSize: 40, mb: 10 }}/>
+            </Box>
+            <Box sx={{ display: 'flex', flexDirection: 'column', }}>
             <DialogTitle id="alert-dialog-title">
                 {"Are you sure you want to delete this comment?"}
             </DialogTitle>
@@ -146,9 +160,11 @@ const CommentsList = (props) => {
                 Deleting a comment is permanent and cannot be undone. Please confirm if you want to delete this comment.
                 </DialogContentText>
             </DialogContent>
+            </Box>
+            </Box>
             <DialogActions>
-                <Button onClick={handleCloseDialog}>Cancel</Button>
-                <Button onClick={handleConfirmDelete} autoFocus>
+                <Button variant="contained" color="primary" onClick={handleCloseDialog}>Cancel</Button>
+                <Button variant="contained" color="success" onClick={handleConfirmDelete} autoFocus>
                     Confirm
                 </Button>
             </DialogActions>
